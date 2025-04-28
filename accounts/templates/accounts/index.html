@@ -29,13 +29,15 @@
    </div>
 
    <div class="homebody">
-    <div class="search">
+  
         <form method="POST" action="{% url 'accounts:search_users' %}">
+            <div class="search">
             {% csrf_token %}
             <input type="text" name="username" placeholder="Search users..." required>
             <button type="submit">Search</button>
+        </div>
         </form>
-    </div>
+   
     <div class="postform">
         <form method="POST" action="{% url 'accounts:create_post' %}" enctype="multipart/form-data">
             {% csrf_token %}
@@ -50,14 +52,18 @@
                 <div class="user-info">
                     <img class="requestimg" src="{{ post.user.get_picture_url }}" alt="{{ post.user.username }}'s profile picture" height="50px" width="50px" onerror="this.onerror=null; this.remove();">
                     <p>{{ post.user.username }}</p>
+                   
                 </div>
+                <hr style="width:100%; border: 2px solid white;">
+
                 <div class="post-caption">
                     <p>{{ post.caption }}</p>
+                    
                 </div>
                 <div class="post-image">
                     <img src="{{ post.image.url }}" alt="Post image" height="300px">
                 </div>
-                
+                <p>{{post.created_at}}</p>
             </div>
         {% empty %}
             <p>No posts yet.</p>
