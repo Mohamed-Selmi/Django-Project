@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'accounts/style/style.css' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+    <body style="gap:0px;">
+        <div class="home">
+       <div class="header">
+        <ul class="homeul">
+            
+           <div class="menuitem"><li><a href="{% url 'accounts:home' %}"><img src="{% static 'accounts/images/home.png' %}" alt="Logao" height="75px" width="75px"></a></li>
+        <p>HomePage</p></div> 
+           <div class="menuitem"><li><a href="{% url 'friends:show_friend_requests' %}"><img src="{% static 'accounts/images/add-friend.png' %}" alt="Logao" height="75px" width="75px"></a></li>
+            <p>Friend requests</p></div>
+            <div class="menuitem"> <li><a href="{% url 'accounts:show_friendlist' %}"><img src="{% static 'accounts/images/high-five.png' %}" alt="Logao" height="75px" width="75px"></a></li>
+                <p>Friendlist</p></div>
+            <div class="menuitem"><li><a href="{% url 'accounts:profile' %}"><img src="{% static 'accounts/images/user.png' %}" alt="Logao" height="75px" width="75px"></a></li>
+                <p>Profile</p></div>
+          
+        </ul>
+    
+    
+       </div>
+    
+    
+{% block content %}
+    <div class="homebody">
+        <div class="profile">
+            <div>
+                <img class="profileimg" src="{{ user.get_picture_url }}" alt="{{ user.username }}'s profile picture" height="350px" width="350px"  onerror="this.onerror=null; this.remove();">
+            </div>
+            <div><h2>Username: {{ user.username }}</h2></div>
+            <div><h2>Email: {{ user.email }}</h2></div>
+            <div>
+                {% if user != request.user %}
+                    {% if are_friends %}
+                        <p>You are friends!</p>
+                    {% elif sent_request %}
+                        <p>You sent a friend request to {{ user.username }}.</p>
+                    {% elif received_request %}
+                        <p>{{ user.username }} has sent you a friend request.</p>
+                    {% else %}
+                        <p>You are not friends with {{ user.username }}. 
+                        <a href="{% url 'friends:send_friend_request' user_id=user.user_id %}">Send Friend Request</a></p>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            {% if user == request.user %}
+                <div class="card">
+                    <img src="{% static 'accounts/images/setting.svg' %}" alt="Logo" height="75px" width="75px">
+                    <a href="{% url 'accounts:edit_profile' %}">Edit Profile</a>
+                </div>
+                <div class="card">
+                    <img src="{% static 'accounts/images/setting.svg' %}" alt="Logo" height="75px" width="75px">
+                    <a href="{% url 'accounts:logout' %}">Logout</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+</div>
+<div class="footer"><p>its a me </p></div>
+</body>
+</html>

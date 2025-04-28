@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{% static 'accounts/style/style.css' %}">
+</head>
+<body style="gap:0px;">
+    <div class="home">
+        <div class="header">
+            <ul class="homeul">
+                <li class="menuitem">
+                    <a href="{% url 'accounts:home' %}">
+                        <img class="menuimg" src="{% static 'accounts/images/home.png' %}" alt="Home" height="75px" width="75px">
+                        <p>HomePage</p>
+                    </a>
+                </li>
+                <li class="menuitem">
+                    <a href="{% url 'friends:show_friend_requests' %}">
+                        <img class="menuimg" src="{% static 'accounts/images/add-friend.png' %}" alt="Friend Requests" height="75px" width="75px">
+                        <p>Friend requests</p>
+                    </a>
+                </li>
+                <li class="menuitem">
+                    <a href="{% url 'accounts:profile' %}">
+                        <img class="menuimg" src="{% static 'accounts/images/high-five.png' %}" alt="Friendlist" height="75px" width="75px%">
+                        <p>Friendlist</p>
+                    </a>
+                </li>
+                <li class="menuitem">
+                    <a href="{% url 'accounts:profile' %}">
+                        <img class="menuimg" src="{% static 'accounts/images/user.png' %}" alt="Profile" height="75px" width="75px%">
+                        <p>Profile</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="homebody">
+            <div class="searchresults">
+                <h2>Search Results</h2>
+
+                {% if results %}
+                   
+                        {% for user in results %}
+                            
+                                <div class="requestcard">
+                                    <img class="requestimg" src="{{ user.get_picture_url }}" alt="{{ user.username }}'s profile picture" height="100px" width="100px" onerror="this.onerror=null; this.remove();">
+                                    <a href="{% url 'accounts:profile_detail' user.user_id %}">{{ user.username }}</a>
+                                </div>
+                            
+                        {% endfor %}
+                    
+                {% else %}
+                    <p>No users found.</p>
+                {% endif %}
+
+                <a href="{% url 'accounts:home' %}">Back to Home</a>
+            </div>
+        </div>
+
+       
+    </div>
+    <div class="footer">
+        <p>It's-a me</p>
+    </div>
+</body>
+</html>

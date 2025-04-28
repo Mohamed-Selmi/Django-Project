@@ -1,0 +1,75 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'accounts/style/style.css' %}">
+    <title>HomePage</title>
+    
+</head>
+<body style="gap:0px;">
+    <div class="home">
+   <div class="header">
+    <ul class="homeul">
+        
+       <div class="menuitem"><li><a href="{% url 'accounts:home' %}"><img class="menuimg" src="{% static 'accounts/images/home.png' %}" alt="Logao" height="75px" width="75px"></a></li>
+    <p>HomePage</p></div> 
+       <div class="menuitem"><li><a href="{% url 'friends:show_friend_requests' %}"><img class="menuimg" src="{% static 'accounts/images/add-friend.png' %}" alt="Logao" height="75px" width="75px"></a></li>
+        <p>Friend requests</p></div>
+        <div class="menuitem"> <li><a href="{% url 'accounts:show_friendlist' %}"><img class="menuimg" src="{% static 'accounts/images/high-five.png' %}" alt="Logao" height="75px" width="75px"></a></li>
+            <p>Friendlist</p></div>
+        <div class="menuitem"><li><a href="{% url 'accounts:profile' %}"><img class="menuimg" src="{% static 'accounts/images/user.png' %}" alt="Logao" height="75px" width="75px"></a></li>
+            <p>Profile</p></div>
+      
+    </ul>
+    
+
+   </div>
+
+   <div class="homebody">
+    <div class="search">
+        <form method="POST" action="{% url 'accounts:search_users' %}">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Search users..." required>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <div class="postform">
+        <form method="POST" action="{% url 'accounts:create_post' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="image" required>
+            <textarea name="caption" placeholder="Write a caption..."></textarea>
+            <button type="submit">Post</button>
+        </form>
+    </div>
+    <div class="userposts">
+        {% for post in posts %}
+            <div class="post">
+                <div class="user-info">
+                    <img class="requestimg" src="{{ post.user.get_picture_url }}" alt="{{ post.user.username }}'s profile picture" height="50px" width="50px" onerror="this.onerror=null; this.remove();">
+                    <p>{{ post.user.username }}</p>
+                </div>
+                <div class="post-caption">
+                    <p>{{ post.caption }}</p>
+                </div>
+                <div class="post-image">
+                    <img src="{{ post.image.url }}" alt="Post image" height="300px">
+                </div>
+                
+            </div>
+        {% empty %}
+            <p>No posts yet.</p>
+        {% endfor %}
+    </div>
+    
+    
+
+
+   </div>
+</div>
+
+   <div class="footer"><p>its a me </p></div>
+</body>
+</html>

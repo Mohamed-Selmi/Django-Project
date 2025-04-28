@@ -1,0 +1,46 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{% static 'accounts/style/style.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sign up</title>
+	</head>
+<body >
+	<div class="header">
+		<ul>
+			<li><img src="{% static 'accounts/images/logo.png' %}" alt="Logao" height="100px" width="100px"></li>
+			<li>Stay connected with friends, always</li>
+		</ul>
+	</div>
+	<div class="body">
+	
+		<div class="logo"><img id="logo" src="{% static 'accounts/images/applogo.svg' %}" alt="Logao" height="80%" width="350px"></div>
+		<div class="form">
+			<div><h1>Register Now!</h1></div>
+			<div>
+			<form method="POST" enctype="multipart/form-data">
+				
+				{% csrf_token %}
+					<p>Username:</p>
+      				 {{ form.username }}
+					   {{ form.username.errors }}
+					<p>Email address:</p>{{ form.email }}
+					{{ form.username.errors }}
+					<p>Password:</p>{{ form.password }}
+				
+				<button type="submit">Register</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="footer">
+	<p>Already have an account? <a href="{% url 'accounts:login' %}">Login instead</a></p>
+</div>
+
+	
+</body>
+</html>

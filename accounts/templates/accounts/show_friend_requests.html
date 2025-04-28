@@ -1,0 +1,69 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'accounts/style/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend Requests</title>
+</head>
+<body style="gap:0px;">
+    <div class="home">
+        <div class="header">
+            <ul class="homeul">
+                <div class="menuitem">
+                    <li><a href="{% url 'accounts:home' %}"><img src="{% static 'accounts/images/home.png' %}" alt="Home" height="75px" width="75px"></a></li>
+                    <p>HomePage</p>
+                </div>
+                <div class="menuitem">
+                    <li><a href="{% url 'friends:show_friend_requests' %}"><img src="{% static 'accounts/images/add-friend.png' %}" alt="Friend Requests" height="75px" width="75px"></a></li>
+                    <p>Friend requests</p>
+                </div>
+                <div class="menuitem">
+                    <li><a href="{% url 'accounts:show_friendlist' %}"><img src="{% static 'accounts/images/high-five.png' %}" alt="Friendlist" height="75px" width="75px"></a></li>
+                    <p>Friendlist</p>
+                </div>
+                <div class="menuitem">
+                    <li><a href="{% url 'accounts:profile' %}"><img src="{% static 'accounts/images/user.png' %}" alt="Profile" height="75px" width="75px"></a></li>
+                    <p>Profile</p>
+                </div>
+            </ul>
+        </div>
+
+        <div class="homebody">
+            <div class="requests">
+                <div class="sent">
+                    <h2>Sent Friend Requests</h2>
+                    {% for request in sent_requests %}
+                    <div class="requestcard">
+                        <img class="requestimg" src="{{ request.receiver.get_picture_url }}" alt="{{ user.username }}'s profile picture" height="100px" width="100x">
+                        <p>To: {{ request.receiver.username }}</p>
+                        <a href="{% url 'friends:cancel_friend_request' request.id %}"><img src="{% static 'accounts/images/cancel.png' %}" alt="Logao" height="35px" width="35px"></a>
+                    </div>
+                    {% empty %}
+                    <p>No sent requests.</p>
+                    {% endfor %}
+                </div>
+                <div class="vl"></div>
+                <div class="received">
+                    <h2>Received Friend Requests</h2>
+                    {% for request in received_requests %}
+                    <div class="requestcard">
+                        <p>From: {{ request.sender.username }}</p>
+                        <a href="{% url 'friends:accept_friend_request' request.id %}">Accept</a> |
+                        <a href="{% url 'friends:decline_friend_request' request.id %}">Decline</a>
+                    </div>
+                    {% empty %}
+                    <p>No received requests.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>its a me</p>
+    </div>
+
+</body>
+</html>
