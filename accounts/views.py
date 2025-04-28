@@ -14,7 +14,7 @@ def register_view(request):
             user.set_password(form.cleaned_data['password'])
             user.save()
             login(request, user)
-            return redirect('accounts:index.html')
+            return redirect('accounts:home')
 
     else:
         form = UserRegisterForm()
