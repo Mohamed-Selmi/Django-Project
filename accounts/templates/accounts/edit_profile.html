@@ -1,26 +1,52 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'accounts/style/style.css' %}">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My profile</title>
+    <title>Profile edit</title>
 </head>
-<body>
+<body style="gap:0px;">
+  <div class="home">
+ <div class="header">
+  <ul class="homeul">
+      
+     <div class="menuitem"><li><a href="{% url 'accounts:home' %}"><img class="menuimg" src="{% static 'accounts/images/home.png' %}" alt="Logao" height="75px" width="75px"></a></li>
+  <p>HomePage</p></div> 
+     <div class="menuitem"><li><a href="{% url 'friends:show_friend_requests' %}"><img class="menuimg" src="{% static 'accounts/images/add-friend.png' %}" alt="Logao" height="75px" width="75px"></a></li>
+      <p>Friend requests</p></div>
+      <div class="menuitem"> <li><a href="{% url 'accounts:show_friendlist' %}"><img class="menuimg" src="{% static 'accounts/images/high-five.png' %}" alt="Logao" height="75px" width="75px"></a></li>
+          <p>Friendlist</p></div>
+      <div class="menuitem"><li><a href="{% url 'accounts:profile' %}"><img class="menuimg" src="{% static 'accounts/images/user.png' %}" alt="Logao" height="75px" width="75px"></a></li>
+          <p>Profile</p></div>
+    
+  </ul>
   
 
+ </div>
+
+ <div class="homebody">
     {% block content %}
     <h2>Edit Profile</h2>
   
-    <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      
+    <form class="editform" method="POST" enctype="multipart/form-data">
+      {% csrf_token %} 
       {{ form.as_p }}
-  
       <button type="submit">Save Changes</button>
     </form>
     
     <br>
-    <a href="{% url 'accounts:profile' %}">Cancel</a> 
+    <div class="card">
+      <img src="{% static 'accounts/images/setting.svg' %}" alt="Logo" height="75px" width="75px">
+      <a href="{% url 'accounts:profile' %}">Return to profile</a>
+  </div>
+  
   {% endblock %}
+</div>
+</div>
+<div class="footer"><p>Made By Mohamed Amine Selmi G1</p></div>
 </body>
 </html>

@@ -226,6 +226,7 @@
     align-items: center;
     padding:10px;
     border-radius: 25px;
+    border:2px solid black;
 }
 .userposts,.post{
     display: flex;
@@ -256,4 +257,10 @@
 .postform{
     border:1px solid black;
     padding:10px;
+}
+.editform{
+    flex-direction: column;
+    gap:18px;
+    border:3px solid black;
+    padding:18px;
 }
